@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id                 String              @id @default(cuid())
+  name               String              @default("Personal")
+  description        String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  users              String[]
+  transactions       Transaction[]
+  categories         Category[]
+  bookAccounts       BookAccount[]
+  commercialAccounts CommercialAccount[]
+}
+
+enum BookAccountType {
+  CASH
+  BANK
+  CREDITCARD
+  DEBITCARD
+  SAVING
+  OTHER
+}
+
+model BookAccount {
+  id           String          @id @default(cuid())
+  name         String
+  balance      Float           @default(0)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  type         BookAccountType @default(CASH)
+  bookId       String
+  book         Book            @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  userId       String
+}
+
+model Category {
+  id           String        @id @default(cuid())
+  name         String        @default("Other")
+  description  String?
+  transactions Transaction[]
+  book         Book          @relation(fields: [bookId], references: [id])
+  bookId       String
+  userId       String
+}
+
+// Cari Hesaplar
+enum CommercialAccountType {
+  CUSTOMER
+  SUPPLIER
+  PARTNER
+  OTHER
+}
+
+model CommercialAccount {
+  id           String                @id @default(cuid())
+  name         String
+  description  String?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  bookId       String
+  book         Book                  @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  createdBy    String
+  type         CommercialAccountType @default(OTHER)
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+model Transaction {
+  id                  String             @id @default(cuid())
+  name                String?
+  description         String?
+  amount              Float
+  dueDate             DateTime?
+  reminder            DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  bookId              String
+  book                Book               @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  type                TransactionType    @default(EXPENSE)
+  category            Category           @relation(fields: [categoryId], references: [id])
+  categoryId          String
+  bookAccount         BookAccount        @relation(fields: [bookAccountId], references: [id])
+  bookAccountId       String
+  userId              String
+  parent              Transaction?       @relation("TransactionToSubTransaction", fields: [parentId], references: [id])
+  parentId            String?
+  subtransactions     Transaction[]      @relation("TransactionToSubTransaction")
+  commercialAccount   CommercialAccount? @relation(fields: [commercialAccountId], references: [id])
+  commercialAccountId String?
+}
