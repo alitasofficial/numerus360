@@ -29,7 +29,6 @@ import {
   Twitter,
   User,
   X,
-  type Icon as LucideIcon,
   HomeIcon,
   LayoutDashboardIcon,
   AlbumIcon,
@@ -52,6 +51,7 @@ import {
   CornerDownRightIcon,
   EditIcon,
 } from "lucide-react"
+import type { IconNode as LucideIcon } from "lucide-react"
 
 export type Icon = LucideIcon
 
