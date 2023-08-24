@@ -18,7 +18,10 @@ export default function BookAccountSelector({ setShowAllTransactions }: BookAcco
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="flex items-center">
-        <Button variant={"link"} className="font-light dark:text-foreground">
+        <Button
+          variant={"ghost"}
+          className="hover:bg-background active:bg-background font-semibold dark:text-foreground"
+        >
           {activeBookAccount?.name}
         </Button>
       </DropdownMenuTrigger>

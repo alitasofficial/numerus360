@@ -50,12 +50,18 @@ import {
   FilterIcon,
   CornerDownRightIcon,
   EditIcon,
+  EyeOffIcon,
+  EyeIcon,
 } from "lucide-react"
 import type { IconNode as LucideIcon } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+  eyeOff: EyeOffIcon,
+  eye: EyeIcon,
+  text: FileText,
+  recurring: RefreshCwIcon,
   date: CalendarIcon,
   home: HomeIcon,
   dashboard: LayoutDashboardIcon,

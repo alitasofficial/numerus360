@@ -19,6 +19,7 @@ type AppDataStore = {
   setCategories: (categories: Category[]) => void
   // Transactions
   setTransactions: (transactions: Transaction[]) => void
+  addTransaction: (transaction: Transaction) => void
 }
 
 export const useAppDataStore = create<AppDataStore>((set) => ({
@@ -39,4 +40,5 @@ export const useAppDataStore = create<AppDataStore>((set) => ({
   setCategories: (categories) => set({ categories: categories }),
   // Transactions
   setTransactions: (transactions) => set({ transactions: transactions }),
+  addTransaction: (transaction) => set((state) => ({ transactions: [...state.transactions, transaction] })),
 }))

@@ -15,33 +15,33 @@ export default function TransactionsTable() {
   return (
     <section>
       <>
-        <div className="mb-3 flex items-center justify-between gap-3 border-b">
-          <div className="flex items-center gap-2">
-            <div className="flex w-full items-center rounded-md pl-2">
-              <Icons.filter className="mx-1 h-4 w-4" />
-              <BookAccountSelector setShowAllTransactions={setShowAllTransactions} />
-              {/* <CategorySelector
+        <div className="mb-3 flex items-center justify-between gap-3 py-2 px-2 bg-muted rounded-md">
+          <div className="flex w-full items-center rounded-md pl-2 gap-2">
+            <Icons.filter className="mx-1 h-4 w-4" />
+            <BookAccountSelector setShowAllTransactions={setShowAllTransactions} />
+            {/* <CategorySelector
                 categories={categories}
                 categoryFilter={categoryFilter}
                 setCategoryFilter={setCategoryFilter}
               /> */}
-            </div>
           </div>
 
           <Button
-            variant={showAllTransactions ? "default" : "link"}
-            className="font-light dark:text-foreground"
+            variant={showAllTransactions ? "default" : "ghost"}
+            className={`font-semibold dark:text-foreground hover:bg-background hover:text-foreground ${
+              showAllTransactions ? "bg-background text-foreground" : ""
+            }`}
             onClick={() => {
               setShowAllTransactions((prev) => !prev)
             }}
           >
-            All
+            <span>All</span>
           </Button>
         </div>
       </>
 
       <>
-        <div className="space-y-1 rounded-md">
+        <div className="space-y-1 rounded-md border divide-y ">
           {transactions.length === 0 ? (
             <div className="min-h-14 px-3 py-2 text-center">No transactions</div>
           ) : (
