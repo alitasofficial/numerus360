@@ -1,3 +1,5 @@
+import Header from "@/components/header"
+import MobileFooter from "@/components/mobile-footer"
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import React from "react"
@@ -9,7 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       {/* <Hydrate state={pageProps.dehydratedState}> */}
-      <Component {...pageProps} />
+      <Header />
+      <main className="flex-1 overflow-y-scroll scrollbar-hide container">
+        <Component {...pageProps} />
+      </main>
+      <MobileFooter />
       {/* </Hydrate> */}
     </QueryClientProvider>
   )
